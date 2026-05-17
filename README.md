@@ -42,7 +42,7 @@ UCSF-PDGM: University of California San Francisco Preoperative Diffuse Glioma MR
 ADNI: Alzheimer's Disease Neuroimaging Initiative (for extended validation)
 
 📞 Contact
-For questions, collaborations, or inquiries about this work, please contact:
+For questions, inquiries about this work, please contact:
 
 Adeel Ahmed Abbasi
 📧 adeelabbasi@csu.edu.cn
