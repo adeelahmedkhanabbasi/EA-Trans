@@ -1,0 +1,40 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from einops.layers.torch import Rearrange
+from einops import rearrange, repeat
+
+from models.edgedwcnn3D import EADWConv3d
+from models.wtcnn3D import WTConv3d
+
+# Helper function for 3x3x3 convolution layer
+def conv3x3x3(in_channels, out_channels, stride=1):
+    return nn.Conv3d(in_channels, out_channels, kernel_size=3, stride=stride, padding=1)
+
+
+class eat(nn.Module):
+    def __init__(self, in_channels, high_res_channels, embed_dim):
+        super(eat, self).__init__()
+        
+        self.edge = EADWConv3d(in_channels = embed_dim, out_channels = embed_dim, kernel_size=3, stride=1, padding=1)
+
+        self.multimodal = nn.Sequential(
+            conv3x3x3(in_channels, embed_dim // 8, 2),  # conv3x3x3 with stride 2
+            nn.GELU(),
+            conv3x3x3(embed_dim // 8, embed_dim // 4, 2),  # conv3x3x3 with stride 2
+            nn.GELU(),
+            conv3x3x3(embed_dim // 4, embed_dim // 2, 2),  # conv3x3x3 with stride 2
+            nn.GELU(),
+            conv3x3x3(embed_dim // 2, embed_dim, 2),  # conv3x3x3 with stride 2
+        )
+        self.shift = 8
+
+    def forward(self, x):
+        shortcut = x
+        
+        multimodal = self.multimodal(x)
+        multimodal  = self.edge(multimodal) + multimodal 
+        multimodal = multimodal.permute(0,2,3,4,1)
+        b,d,h,w,c = multimodal.shape
+        multimodal = multimodal.reshape(b,d*h*w,c)
+        return multimodal
