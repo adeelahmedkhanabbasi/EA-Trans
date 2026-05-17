@@ -1,6 +1,4 @@
 EA-Trans: Edge-Aware Transformer for Glioma Grading
-https://img.shields.io/badge/Paper-Published-brightgreen
-https://img.shields.io/badge/License-MIT-blue
 
 Official implementation of EA-Trans: Edge-Aware Transformer with Shared Axis Feature Alignment and Adaptive Self-Attention for Glioma Grading, published in Engineering Applications of Artificial Intelligence, Volume 164, 2026.
 
@@ -21,9 +19,6 @@ Xinyu Li - Central South University
 Jianxin Wang - Central South University
 
 Human Provincial Key Lab on Bioinformatics, School of Computer Science and Engineering, Central South University, Changsha, Hunan, China
-
-🚀 Code Status
-📍 Update: The code is currently being finalized and will be released soon! Please check back for updates.
 
 🏥 Overview
 EA-Trans is a novel transformer-based architecture designed for accurate glioma grading from 3D multimodal MRI scans. The model addresses key limitations in existing methods by integrating four specialized modules:
